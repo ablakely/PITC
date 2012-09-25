@@ -25,8 +25,13 @@ else {
 	$autoconnect = false;
 }
 /* Handle being terminated */
-if (PHP_OS == "Linux") {
-	// Not MAC OSX? Signals!
+if (PHP_OS !== "Darwin") {
+	/*
+	 * Mac OS X (darwin) doesn't be default come with the pcntl module bundled
+	 * with it's PHP install.  There's not much that can be done about that at this
+	 * point.
+	 */
+
 	pcntl_signal(SIGTERM, "signal_handler");
 	pcntl_signal(SIGINT, "signal_handler");
 	pcntl_signal(SIGHUP, "signal_handler");
